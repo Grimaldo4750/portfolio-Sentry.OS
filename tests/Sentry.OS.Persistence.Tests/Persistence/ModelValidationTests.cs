@@ -156,8 +156,21 @@ public class ModelValidationTests
             .Select(cas => (Guid)cas["ScopeId"]!)
             .ToHashSet();
 
-        var intersection = roleScopeIds.Intersect(clientAllowedScopeIds).OrderBy(id => id);
-        var expected = new[] { SeedConstants.ScopeReadId, SeedConstants.ScopeWriteId }.OrderBy(id => id);
+        var intersection = roleScopeIds.Intersect(clientAllowedScopeIds).OrderBy(id => id).ToList();
+
+        // The seeded role bundles one scope per Admin Management API area (FR-024) — a real,
+        // complete administrative capability, not a symbolic pair — and the client is allowed the
+        // exact same set, so the intersection is all seven.
+        var expected = new[]
+        {
+            SeedConstants.ScopeOrganizationsManageId,
+            SeedConstants.ScopeApplicationsManageId,
+            SeedConstants.ScopeResourcesManageId,
+            SeedConstants.ScopeClientsManageId,
+            SeedConstants.ScopeRolesManageId,
+            SeedConstants.ScopeUsersManageId,
+            SeedConstants.ScopeAuditReadId
+        }.OrderBy(id => id).ToList();
 
         Assert.Equal(expected, intersection);
     }

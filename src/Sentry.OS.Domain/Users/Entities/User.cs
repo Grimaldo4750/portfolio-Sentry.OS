@@ -54,6 +54,12 @@ public class User : AuditableEntity, ISoftDelete
     /// <summary>Whether the account has been administratively disabled.</summary>
     public bool IsDisabled { get; set; }
 
+    /// <summary>
+    /// Whether this user holds platform-wide administrative authority across all organizations,
+    /// independent of any single <see cref="Organizations.OrganizationMembership"/>.
+    /// </summary>
+    public bool IsGlobalAdministrator { get; set; }
+
     /// <summary>Whether lockout on repeated failures is enabled.</summary>
     public bool LockoutEnabled { get; set; } = true;
 

@@ -19,9 +19,13 @@ public sealed class IdentityDbContextFactory : IDesignTimeDbContextFactory<Ident
             ?? Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT")
             ?? "Development";
 
-        // Build configuration from appsettings.json files in the IdentityServer project
+        // Build configuration from appsettings.json files in the IdentityServer project. Located by
+        // walking up from this assembly's own output directory rather than the current working
+        // directory, so this factory behaves identically whether invoked by `dotnet ef` (CWD = the
+        // startup project directory) or directly from test code (CWD = the test assembly's bin
+        // output directory).
         var configuration = new ConfigurationBuilder()
-            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "..", "Sentry.OS.IdentityServer"))
+            .SetBasePath(FindIdentityServerProjectDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
             .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: false)
             .Build();
@@ -37,5 +41,20 @@ public sealed class IdentityDbContextFactory : IDesignTimeDbContextFactory<Ident
             .Options;
 
         return new IdentityDbContext(options, new DesignTimeCurrentOrganization());
+    }
+
+    private static string FindIdentityServerProjectDirectory()
+    {
+        for (var dir = new DirectoryInfo(AppContext.BaseDirectory); dir is not null; dir = dir.Parent)
+        {
+            var candidate = Path.Combine(dir.FullName, "src", "Sentry.OS.IdentityServer");
+            if (Directory.Exists(candidate))
+            {
+                return candidate;
+            }
+        }
+
+        throw new InvalidOperationException(
+            "Could not locate the src/Sentry.OS.IdentityServer directory by walking up from the executing assembly's location.");
     }
 }

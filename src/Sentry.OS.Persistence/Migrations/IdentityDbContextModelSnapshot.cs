@@ -83,15 +83,15 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("44444444-4444-4444-4444-444444444444"),
-                            CreatedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Administrative portal for the Sentry.OS platform.",
+                            Id = new Guid("0b12880d-dc23-4f74-a28f-f71525390a9c"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "The single web application used to sign in and administer Sentry.OS.",
                             IsActive = true,
                             IsDeleted = false,
-                            Name = "Sentry Admin Portal",
-                            OrganizationId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            Name = "Sentry Management Web App",
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
                             RowVersion = new byte[0],
-                            Slug = "admin-portal"
+                            Slug = "sentry-management-web-app"
                         });
                 });
 
@@ -191,12 +191,12 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("99999999-9999-9999-9999-999999999999"),
-                            CreatedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Full administrative access within the organization.",
+                            Id = new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Full administrative access to the Sentry Management API.",
                             Level = 100,
-                            Name = "OrganizationAdmin",
-                            OrganizationId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            Name = "GlobalAdministrator",
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
                             RowVersion = new byte[0]
                         });
                 });
@@ -252,13 +252,13 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dddddddd-dddd-dddd-dddd-ddddddddddd1"),
-                            AssignedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            CreatedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            OrganizationId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            RoleId = new Guid("99999999-9999-9999-9999-999999999999"),
+                            Id = new Guid("e07b9119-aaa4-4d10-9026-5968402243ce"),
+                            AssignedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
+                            RoleId = new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"),
                             RowVersion = new byte[0],
-                            UserId = new Guid("22222222-2222-2222-2222-222222222222")
+                            UserId = new Guid("e23b2eae-0a19-4e08-b752-282af674137a")
                         });
                 });
 
@@ -279,13 +279,38 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            RoleId = new Guid("99999999-9999-9999-9999-999999999999"),
-                            ScopeId = new Guid("77777777-7777-7777-7777-777777777777")
+                            RoleId = new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"),
+                            ScopeId = new Guid("be5eadc2-d9e1-4bf1-93c0-0e29f2016f92")
                         },
                         new
                         {
-                            RoleId = new Guid("99999999-9999-9999-9999-999999999999"),
-                            ScopeId = new Guid("88888888-8888-8888-8888-888888888888")
+                            RoleId = new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"),
+                            ScopeId = new Guid("42a42a3e-d8d1-42d2-894e-9151e69b0c2e")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"),
+                            ScopeId = new Guid("b22ed850-e3ee-4831-8edb-9cb1b882a03c")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"),
+                            ScopeId = new Guid("95bcf91b-28b0-494a-ac55-c0d9cd328298")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"),
+                            ScopeId = new Guid("1c954386-ac5d-45cf-94ff-8595fdaccb76")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"),
+                            ScopeId = new Guid("01ab320f-5bbc-4c68-a91d-e578b4501d75")
+                        },
+                        new
+                        {
+                            RoleId = new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"),
+                            ScopeId = new Guid("91710057-3024-42c6-8e53-f2a7958b9e00")
                         });
                 });
 
@@ -369,15 +394,15 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("55555555-5555-5555-5555-555555555555"),
+                            Id = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
                             AccessTokenLifetimeSeconds = 3600,
-                            ApplicationId = new Guid("44444444-4444-4444-4444-444444444444"),
-                            ClientId = "sentry-admin-portal",
-                            CreatedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DisplayName = "Sentry Admin Portal (SPA)",
+                            ApplicationId = new Guid("0b12880d-dc23-4f74-a28f-f71525390a9c"),
+                            ClientId = "sentry-management-web-app",
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayName = "Sentry Management Web App (SPA)",
                             IdentityTokenLifetimeSeconds = 300,
                             IsActive = true,
-                            OrganizationId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
                             RefreshTokenLifetimeSeconds = 1209600,
                             RefreshTokenRotationEnabled = true,
                             RequireClientSecret = false,
@@ -403,13 +428,38 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            ClientId = new Guid("55555555-5555-5555-5555-555555555555"),
-                            ScopeId = new Guid("77777777-7777-7777-7777-777777777777")
+                            ClientId = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
+                            ScopeId = new Guid("be5eadc2-d9e1-4bf1-93c0-0e29f2016f92")
                         },
                         new
                         {
-                            ClientId = new Guid("55555555-5555-5555-5555-555555555555"),
-                            ScopeId = new Guid("88888888-8888-8888-8888-888888888888")
+                            ClientId = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
+                            ScopeId = new Guid("42a42a3e-d8d1-42d2-894e-9151e69b0c2e")
+                        },
+                        new
+                        {
+                            ClientId = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
+                            ScopeId = new Guid("b22ed850-e3ee-4831-8edb-9cb1b882a03c")
+                        },
+                        new
+                        {
+                            ClientId = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
+                            ScopeId = new Guid("95bcf91b-28b0-494a-ac55-c0d9cd328298")
+                        },
+                        new
+                        {
+                            ClientId = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
+                            ScopeId = new Guid("1c954386-ac5d-45cf-94ff-8595fdaccb76")
+                        },
+                        new
+                        {
+                            ClientId = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
+                            ScopeId = new Guid("01ab320f-5bbc-4c68-a91d-e578b4501d75")
+                        },
+                        new
+                        {
+                            ClientId = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
+                            ScopeId = new Guid("91710057-3024-42c6-8e53-f2a7958b9e00")
                         });
                 });
 
@@ -438,8 +488,8 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cccccccc-cccc-cccc-cccc-ccccccccccc1"),
-                            ClientId = new Guid("55555555-5555-5555-5555-555555555555"),
+                            Id = new Guid("184172f9-0490-4bb0-906e-65a1bf1e9fb4"),
+                            ClientId = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
                             Origin = "http://localhost:5173"
                         });
                 });
@@ -469,14 +519,14 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1"),
-                            ClientId = new Guid("55555555-5555-5555-5555-555555555555"),
+                            Id = new Guid("09717d58-4a26-4945-9020-3f44d409bcc0"),
+                            ClientId = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
                             GrantType = "authorization_code"
                         },
                         new
                         {
-                            Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa2"),
-                            ClientId = new Guid("55555555-5555-5555-5555-555555555555"),
+                            Id = new Guid("3ef56dae-8cb1-465c-a011-7c66054fc362"),
+                            ClientId = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
                             GrantType = "refresh_token"
                         });
                 });
@@ -506,8 +556,8 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb1"),
-                            ClientId = new Guid("55555555-5555-5555-5555-555555555555"),
+                            Id = new Guid("86d91a06-f0bc-4550-bff0-8538c99b538c"),
+                            ClientId = new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"),
                             Uri = "http://localhost:5173/callback"
                         });
                 });
@@ -571,14 +621,14 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            CreatedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DisplayName = "Sentry Platform",
+                            Id = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayName = "Acron",
                             IsActive = true,
                             IsDeleted = false,
-                            Name = "Sentry",
+                            Name = "Acron",
                             RowVersion = new byte[0],
-                            Slug = "sentry"
+                            Slug = "acron"
                         });
                 });
 
@@ -640,15 +690,15 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
-                            CreatedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Id = new Guid("fa1d0cb9-6f57-442d-bab0-7c43079cb7a8"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsActive = true,
                             IsHomeOrganization = true,
                             IsOrganizationAdministrator = true,
-                            JoinedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            OrganizationId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            JoinedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
                             RowVersion = new byte[0],
-                            UserId = new Guid("22222222-2222-2222-2222-222222222222")
+                            UserId = new Guid("e23b2eae-0a19-4e08-b752-282af674137a")
                         });
                 });
 
@@ -708,13 +758,13 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("66666666-6666-6666-6666-666666666666"),
-                            ApplicationId = new Guid("44444444-4444-4444-4444-444444444444"),
-                            CreatedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DisplayName = "Sentry Admin API",
+                            Id = new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"),
+                            ApplicationId = new Guid("0b12880d-dc23-4f74-a28f-f71525390a9c"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayName = "Sentry Management API",
                             IsActive = true,
-                            Name = "sentry-admin-api",
-                            OrganizationId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            Name = "api-sentry-management",
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
                             RowVersion = new byte[0]
                         });
                 });
@@ -776,22 +826,72 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("77777777-7777-7777-7777-777777777777"),
-                            ApiResourceId = new Guid("66666666-6666-6666-6666-666666666666"),
-                            CreatedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DisplayName = "Read administrative data",
-                            Name = "admin.read",
-                            OrganizationId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            Id = new Guid("be5eadc2-d9e1-4bf1-93c0-0e29f2016f92"),
+                            ApiResourceId = new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayName = "Manage organizations",
+                            Name = "organizations.manage",
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
                             RowVersion = new byte[0]
                         },
                         new
                         {
-                            Id = new Guid("88888888-8888-8888-8888-888888888888"),
-                            ApiResourceId = new Guid("66666666-6666-6666-6666-666666666666"),
-                            CreatedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            DisplayName = "Modify administrative data",
-                            Name = "admin.write",
-                            OrganizationId = new Guid("11111111-1111-1111-1111-111111111111"),
+                            Id = new Guid("42a42a3e-d8d1-42d2-894e-9151e69b0c2e"),
+                            ApiResourceId = new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayName = "Manage applications",
+                            Name = "applications.manage",
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
+                            RowVersion = new byte[0]
+                        },
+                        new
+                        {
+                            Id = new Guid("b22ed850-e3ee-4831-8edb-9cb1b882a03c"),
+                            ApiResourceId = new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayName = "Manage API resources and scopes",
+                            Name = "resources.manage",
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
+                            RowVersion = new byte[0]
+                        },
+                        new
+                        {
+                            Id = new Guid("95bcf91b-28b0-494a-ac55-c0d9cd328298"),
+                            ApiResourceId = new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayName = "Manage OAuth clients",
+                            Name = "clients.manage",
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
+                            RowVersion = new byte[0]
+                        },
+                        new
+                        {
+                            Id = new Guid("1c954386-ac5d-45cf-94ff-8595fdaccb76"),
+                            ApiResourceId = new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayName = "Manage roles",
+                            Name = "roles.manage",
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
+                            RowVersion = new byte[0]
+                        },
+                        new
+                        {
+                            Id = new Guid("01ab320f-5bbc-4c68-a91d-e578b4501d75"),
+                            ApiResourceId = new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayName = "Manage users and role assignments",
+                            Name = "users.manage",
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
+                            RowVersion = new byte[0]
+                        },
+                        new
+                        {
+                            Id = new Guid("91710057-3024-42c6-8e53-f2a7958b9e00"),
+                            ApiResourceId = new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"),
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            DisplayName = "Read the audit log",
+                            Name = "audit.read",
+                            OrganizationId = new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"),
                             RowVersion = new byte[0]
                         });
                 });
@@ -891,6 +991,11 @@ namespace Sentry.OS.Persistence.Migrations
                     b.Property<bool>("IsDisabled")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsGlobalAdministrator")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.Property<DateTime?>("LastLoginAtUtc")
                         .HasColumnType("datetime2");
 
@@ -970,23 +1075,24 @@ namespace Sentry.OS.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
+                            Id = new Guid("e23b2eae-0a19-4e08-b752-282af674137a"),
                             AccessFailedCount = 0,
-                            CreatedAtUtc = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Email = "admin@sentry.os",
+                            CreatedAtUtc = new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "c_grimaldo@outlook.com",
                             EmailVerified = true,
-                            FirstName = "Sentry",
+                            FirstName = "Christian",
                             IsDeleted = false,
                             IsDisabled = false,
-                            LastName = "Administrator",
+                            IsGlobalAdministrator = true,
+                            LastName = "Grimaldo",
                             LockoutEnabled = true,
-                            NormalizedEmail = "ADMIN@SENTRY.OS",
-                            PasswordHash = "PBKDF2.SHA256.100000$AQIDBAUGBwgJCgsMDQ4PEA==$sWL+DhI+SQS25GASsBG4DVnKPUL144v0nRCNQOhPk04=",
+                            NormalizedEmail = "C_GRIMALDO@OUTLOOK.COM",
+                            PasswordHash = "PBKDF2.SHA256.100000$vZ9+wS/g0hfSNvcAAizprg==$1AAjcmDjarHZQNAyaJ5vJF6v1wur5LJ0yb52HAeXFVs=",
                             PhoneNumberVerified = false,
                             RowVersion = new byte[0],
-                            SecurityStamp = "SEEDSTAMP0000000000000000000000A",
+                            SecurityStamp = "SEEDSTAMP11062f87a73b41f6a26e6d580aeb02a9",
                             TwoFactorEnabled = false,
-                            UserName = "admin"
+                            UserName = "c_grimaldo"
                         });
                 });
 

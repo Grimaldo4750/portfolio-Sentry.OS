@@ -86,6 +86,7 @@ namespace Sentry.OS.Persistence.Migrations
                     PhoneNumber = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     PhoneNumberVerified = table.Column<bool>(type: "bit", nullable: false),
                     IsDisabled = table.Column<bool>(type: "bit", nullable: false),
+                    IsGlobalAdministrator = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
                     LockoutEndUtc = table.Column<DateTime>(type: "datetime2", nullable: true),
                     AccessFailedCount = table.Column<int>(type: "int", nullable: false),
@@ -585,55 +586,55 @@ namespace Sentry.OS.Persistence.Migrations
                 schema: "Identity",
                 table: "Organizations",
                 columns: new[] { "Id", "CreatedAtUtc", "CreatedBy", "DeletedAtUtc", "DisplayName", "IsActive", "IsDeleted", "ModifiedAtUtc", "ModifiedBy", "Name", "Slug" },
-                values: new object[] { new Guid("11111111-1111-1111-1111-111111111111"), new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Sentry Platform", true, false, null, null, "Sentry", "sentry" });
+                values: new object[] { new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Acron", true, false, null, null, "Acron", "acron" });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "Users",
-                columns: new[] { "Id", "AccessFailedCount", "CreatedAtUtc", "CreatedBy", "DeletedAtUtc", "Email", "EmailVerified", "FirstName", "IsDeleted", "IsDisabled", "LastLoginAtUtc", "LastName", "LockoutEnabled", "LockoutEndUtc", "ModifiedAtUtc", "ModifiedBy", "NormalizedEmail", "PasswordHash", "PhoneNumber", "PhoneNumberVerified", "ProfilePictureUrl", "SecurityStamp", "TwoFactorEnabled", "TwoFactorMethod", "UserName" },
-                values: new object[] { new Guid("22222222-2222-2222-2222-222222222222"), 0, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "admin@sentry.os", true, "Sentry", false, false, null, "Administrator", true, null, null, null, "ADMIN@SENTRY.OS", "PBKDF2.SHA256.100000$AQIDBAUGBwgJCgsMDQ4PEA==$sWL+DhI+SQS25GASsBG4DVnKPUL144v0nRCNQOhPk04=", null, false, null, "SEEDSTAMP0000000000000000000000A", false, null, "admin" });
+                columns: new[] { "Id", "AccessFailedCount", "CreatedAtUtc", "CreatedBy", "DeletedAtUtc", "Email", "EmailVerified", "FirstName", "IsDeleted", "IsDisabled", "IsGlobalAdministrator", "LastLoginAtUtc", "LastName", "LockoutEnabled", "LockoutEndUtc", "ModifiedAtUtc", "ModifiedBy", "NormalizedEmail", "PasswordHash", "PhoneNumber", "PhoneNumberVerified", "ProfilePictureUrl", "SecurityStamp", "TwoFactorEnabled", "TwoFactorMethod", "UserName" },
+                values: new object[] { new Guid("e23b2eae-0a19-4e08-b752-282af674137a"), 0, new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "c_grimaldo@outlook.com", true, "Christian", false, false, true, null, "Grimaldo", true, null, null, null, "C_GRIMALDO@OUTLOOK.COM", "PBKDF2.SHA256.100000$vZ9+wS/g0hfSNvcAAizprg==$1AAjcmDjarHZQNAyaJ5vJF6v1wur5LJ0yb52HAeXFVs=", null, false, null, "SEEDSTAMP11062f87a73b41f6a26e6d580aeb02a9", false, null, "c_grimaldo" });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "Applications",
                 columns: new[] { "Id", "CreatedAtUtc", "CreatedBy", "DeletedAtUtc", "Description", "IsActive", "IsDeleted", "ModifiedAtUtc", "ModifiedBy", "Name", "OrganizationId", "Slug" },
-                values: new object[] { new Guid("44444444-4444-4444-4444-444444444444"), new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Administrative portal for the Sentry.OS platform.", true, false, null, null, "Sentry Admin Portal", new Guid("11111111-1111-1111-1111-111111111111"), "admin-portal" });
+                values: new object[] { new Guid("0b12880d-dc23-4f74-a28f-f71525390a9c"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "The single web application used to sign in and administer Sentry.OS.", true, false, null, null, "Sentry Management Web App", new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"), "sentry-management-web-app" });
 
             migrationBuilder.InsertData(
                 schema: "Identity",
                 table: "OrganizationMemberships",
                 columns: new[] { "Id", "CreatedAtUtc", "CreatedBy", "IsActive", "IsHomeOrganization", "IsOrganizationAdministrator", "JoinedAtUtc", "ModifiedAtUtc", "ModifiedBy", "OrganizationId", "UserId" },
-                values: new object[] { new Guid("33333333-3333-3333-3333-333333333333"), new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, true, true, true, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, new Guid("11111111-1111-1111-1111-111111111111"), new Guid("22222222-2222-2222-2222-222222222222") });
+                values: new object[] { new Guid("fa1d0cb9-6f57-442d-bab0-7c43079cb7a8"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, true, true, true, new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"), new Guid("e23b2eae-0a19-4e08-b752-282af674137a") });
 
             migrationBuilder.InsertData(
                 schema: "Auth",
                 table: "Roles",
                 columns: new[] { "Id", "CreatedAtUtc", "CreatedBy", "Description", "Level", "ModifiedAtUtc", "ModifiedBy", "Name", "OrganizationId" },
-                values: new object[] { new Guid("99999999-9999-9999-9999-999999999999"), new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, "Full administrative access within the organization.", 100, null, null, "OrganizationAdmin", new Guid("11111111-1111-1111-1111-111111111111") });
+                values: new object[] { new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, "Full administrative access to the Sentry Management API.", 100, null, null, "GlobalAdministrator", new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8") });
 
             migrationBuilder.InsertData(
                 schema: "Auth",
                 table: "ApiResources",
                 columns: new[] { "Id", "ApplicationId", "CreatedAtUtc", "CreatedBy", "DisplayName", "IsActive", "ModifiedAtUtc", "ModifiedBy", "Name", "OrganizationId" },
-                values: new object[] { new Guid("66666666-6666-6666-6666-666666666666"), new Guid("44444444-4444-4444-4444-444444444444"), new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, "Sentry Admin API", true, null, null, "sentry-admin-api", new Guid("11111111-1111-1111-1111-111111111111") });
+                values: new object[] { new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"), new Guid("0b12880d-dc23-4f74-a28f-f71525390a9c"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, "Sentry Management API", true, null, null, "api-sentry-management", new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8") });
 
             migrationBuilder.InsertData(
                 schema: "Auth",
                 table: "Clients",
                 columns: new[] { "Id", "AccessTokenLifetimeSeconds", "ApplicationId", "ClientId", "ClientSecretHash", "CreatedAtUtc", "CreatedBy", "DisplayName", "IdentityTokenLifetimeSeconds", "IsActive", "ModifiedAtUtc", "ModifiedBy", "OrganizationId", "RefreshTokenLifetimeSeconds", "RefreshTokenRotationEnabled", "RequireClientSecret", "RequirePkce" },
-                values: new object[] { new Guid("55555555-5555-5555-5555-555555555555"), 3600, new Guid("44444444-4444-4444-4444-444444444444"), "sentry-admin-portal", null, new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, "Sentry Admin Portal (SPA)", 300, true, null, null, new Guid("11111111-1111-1111-1111-111111111111"), 1209600, true, false, true });
+                values: new object[] { new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), 3600, new Guid("0b12880d-dc23-4f74-a28f-f71525390a9c"), "sentry-management-web-app", null, new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, "Sentry Management Web App (SPA)", 300, true, null, null, new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"), 1209600, true, false, true });
 
             migrationBuilder.InsertData(
                 schema: "Auth",
                 table: "RoleAssignments",
                 columns: new[] { "Id", "AssignedAtUtc", "CreatedAtUtc", "CreatedBy", "ModifiedAtUtc", "ModifiedBy", "OrganizationId", "RoleId", "UserId" },
-                values: new object[] { new Guid("dddddddd-dddd-dddd-dddd-ddddddddddd1"), new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, null, new Guid("11111111-1111-1111-1111-111111111111"), new Guid("99999999-9999-9999-9999-999999999999"), new Guid("22222222-2222-2222-2222-222222222222") });
+                values: new object[] { new Guid("e07b9119-aaa4-4d10-9026-5968402243ce"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, null, new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8"), new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"), new Guid("e23b2eae-0a19-4e08-b752-282af674137a") });
 
             migrationBuilder.InsertData(
                 schema: "Auth",
                 table: "ClientCorsOrigins",
                 columns: new[] { "Id", "ClientId", "Origin" },
-                values: new object[] { new Guid("cccccccc-cccc-cccc-cccc-ccccccccccc1"), new Guid("55555555-5555-5555-5555-555555555555"), "http://localhost:5173" });
+                values: new object[] { new Guid("184172f9-0490-4bb0-906e-65a1bf1e9fb4"), new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), "http://localhost:5173" });
 
             migrationBuilder.InsertData(
                 schema: "Auth",
@@ -641,15 +642,15 @@ namespace Sentry.OS.Persistence.Migrations
                 columns: new[] { "Id", "ClientId", "GrantType" },
                 values: new object[,]
                 {
-                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa1"), new Guid("55555555-5555-5555-5555-555555555555"), "authorization_code" },
-                    { new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa2"), new Guid("55555555-5555-5555-5555-555555555555"), "refresh_token" }
+                    { new Guid("09717d58-4a26-4945-9020-3f44d409bcc0"), new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), "authorization_code" },
+                    { new Guid("3ef56dae-8cb1-465c-a011-7c66054fc362"), new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), "refresh_token" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Auth",
                 table: "ClientRedirectUris",
                 columns: new[] { "Id", "ClientId", "Uri" },
-                values: new object[] { new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbb1"), new Guid("55555555-5555-5555-5555-555555555555"), "http://localhost:5173/callback" });
+                values: new object[] { new Guid("86d91a06-f0bc-4550-bff0-8538c99b538c"), new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), "http://localhost:5173/callback" });
 
             migrationBuilder.InsertData(
                 schema: "Auth",
@@ -657,8 +658,13 @@ namespace Sentry.OS.Persistence.Migrations
                 columns: new[] { "Id", "ApiResourceId", "CreatedAtUtc", "CreatedBy", "Description", "DisplayName", "ModifiedAtUtc", "ModifiedBy", "Name", "OrganizationId" },
                 values: new object[,]
                 {
-                    { new Guid("77777777-7777-7777-7777-777777777777"), new Guid("66666666-6666-6666-6666-666666666666"), new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Read administrative data", null, null, "admin.read", new Guid("11111111-1111-1111-1111-111111111111") },
-                    { new Guid("88888888-8888-8888-8888-888888888888"), new Guid("66666666-6666-6666-6666-666666666666"), new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Modify administrative data", null, null, "admin.write", new Guid("11111111-1111-1111-1111-111111111111") }
+                    { new Guid("01ab320f-5bbc-4c68-a91d-e578b4501d75"), new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Manage users and role assignments", null, null, "users.manage", new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8") },
+                    { new Guid("1c954386-ac5d-45cf-94ff-8595fdaccb76"), new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Manage roles", null, null, "roles.manage", new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8") },
+                    { new Guid("42a42a3e-d8d1-42d2-894e-9151e69b0c2e"), new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Manage applications", null, null, "applications.manage", new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8") },
+                    { new Guid("91710057-3024-42c6-8e53-f2a7958b9e00"), new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Read the audit log", null, null, "audit.read", new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8") },
+                    { new Guid("95bcf91b-28b0-494a-ac55-c0d9cd328298"), new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Manage OAuth clients", null, null, "clients.manage", new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8") },
+                    { new Guid("b22ed850-e3ee-4831-8edb-9cb1b882a03c"), new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Manage API resources and scopes", null, null, "resources.manage", new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8") },
+                    { new Guid("be5eadc2-d9e1-4bf1-93c0-0e29f2016f92"), new Guid("d642f40e-bbef-4f01-b75c-f3ab939b240f"), new DateTime(2026, 7, 5, 0, 0, 0, 0, DateTimeKind.Utc), null, null, "Manage organizations", null, null, "organizations.manage", new Guid("02ab59f7-88da-4a57-b351-eea5207f34b8") }
                 });
 
             migrationBuilder.InsertData(
@@ -667,8 +673,13 @@ namespace Sentry.OS.Persistence.Migrations
                 columns: new[] { "ClientId", "ScopeId" },
                 values: new object[,]
                 {
-                    { new Guid("55555555-5555-5555-5555-555555555555"), new Guid("77777777-7777-7777-7777-777777777777") },
-                    { new Guid("55555555-5555-5555-5555-555555555555"), new Guid("88888888-8888-8888-8888-888888888888") }
+                    { new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), new Guid("01ab320f-5bbc-4c68-a91d-e578b4501d75") },
+                    { new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), new Guid("1c954386-ac5d-45cf-94ff-8595fdaccb76") },
+                    { new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), new Guid("42a42a3e-d8d1-42d2-894e-9151e69b0c2e") },
+                    { new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), new Guid("91710057-3024-42c6-8e53-f2a7958b9e00") },
+                    { new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), new Guid("95bcf91b-28b0-494a-ac55-c0d9cd328298") },
+                    { new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), new Guid("b22ed850-e3ee-4831-8edb-9cb1b882a03c") },
+                    { new Guid("88a5a3f3-a5a8-4ed2-ad22-34181ff54a4f"), new Guid("be5eadc2-d9e1-4bf1-93c0-0e29f2016f92") }
                 });
 
             migrationBuilder.InsertData(
@@ -677,8 +688,13 @@ namespace Sentry.OS.Persistence.Migrations
                 columns: new[] { "RoleId", "ScopeId" },
                 values: new object[,]
                 {
-                    { new Guid("99999999-9999-9999-9999-999999999999"), new Guid("77777777-7777-7777-7777-777777777777") },
-                    { new Guid("99999999-9999-9999-9999-999999999999"), new Guid("88888888-8888-8888-8888-888888888888") }
+                    { new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"), new Guid("01ab320f-5bbc-4c68-a91d-e578b4501d75") },
+                    { new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"), new Guid("1c954386-ac5d-45cf-94ff-8595fdaccb76") },
+                    { new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"), new Guid("42a42a3e-d8d1-42d2-894e-9151e69b0c2e") },
+                    { new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"), new Guid("91710057-3024-42c6-8e53-f2a7958b9e00") },
+                    { new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"), new Guid("95bcf91b-28b0-494a-ac55-c0d9cd328298") },
+                    { new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"), new Guid("b22ed850-e3ee-4831-8edb-9cb1b882a03c") },
+                    { new Guid("f76fd1c9-48d6-4381-81cf-290dc89caad7"), new Guid("be5eadc2-d9e1-4bf1-93c0-0e29f2016f92") }
                 });
 
             migrationBuilder.CreateIndex(

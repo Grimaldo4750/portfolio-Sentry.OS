@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Sentry.OS.Domain\Sentry.OS.Domain.csproj" />
     <ProjectReference Include="..\Sentry.OS.Admin.Application\Sentry.OS.Admin.Application.csproj" />
+    <ProjectReference Include="..\Sentry.OS.IdentityServer.Application\Sentry.OS.IdentityServer.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

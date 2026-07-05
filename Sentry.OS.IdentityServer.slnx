@@ -1,6 +1,8 @@
 <Solution>
   <Folder Name="/IdentityServer/">
     <Project Path="src/Sentry.OS.IdentityServer/Sentry.OS.IdentityServer.csproj" />
+    <Project Path="src/Sentry.OS.IdentityServer.Application/Sentry.OS.IdentityServer.Application.csproj" />
+    <Project Path="src/Sentry.OS.IdentityServer.Infrastructure/Sentry.OS.IdentityServer.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/Shared/">
     <Project Path="src/Sentry.OS.Domain/Sentry.OS.Domain.csproj" />
@@ -8,5 +10,6 @@
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="tests/Sentry.OS.Persistence.Tests/Sentry.OS.Persistence.Tests.csproj" />
+    <Project Path="tests/Sentry.OS.IdentityServer.Tests/Sentry.OS.IdentityServer.Tests.csproj" />
   </Folder>
 </Solution>

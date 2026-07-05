@@ -25,6 +25,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         b.Property(x => x.TwoFactorMethod).HasMaxLength(20);
         b.Property(x => x.PhoneNumber).HasMaxLength(30);
 
+        b.Property(x => x.IsGlobalAdministrator).HasDefaultValue(false);
+
         b.HasIndex(x => x.NormalizedEmail).IsUnique();
         b.HasIndex(x => x.Email).IsUnique();
         b.HasIndex(x => x.UserName).IsUnique();
