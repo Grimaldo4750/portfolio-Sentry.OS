@@ -1,18 +1,5 @@
 namespace Sentry.OS.Domain.Users;
 
-/// <summary>The purpose of a one-time <see cref="UserToken"/>.</summary>
-public enum UserTokenPurpose
-{
-    /// <summary>Email address verification.</summary>
-    EmailVerification = 0,
-
-    /// <summary>Password reset.</summary>
-    PasswordReset = 1,
-
-    /// <summary>Email-based two-factor authentication code.</summary>
-    TwoFactor = 2
-}
-
 /// <summary>
 /// A short-lived, single-use secret issued to a user (email verification, password reset, or 2FA).
 /// The value is stored hashed; the plaintext is only ever sent to the user.
