@@ -18,7 +18,7 @@ namespace Sentry.OS.Persistence;
 /// conventions, organization-isolation and soft-delete global query filters, and the development
 /// seed. This context never applies migrations at runtime (constitution Principle IV).
 /// </summary>
-public class IdentityDbContext(DbContextOptions<IdentityDbContext> options, ICurrentOrganization currentOrganization)
+public class IdentityDbContext(DbContextOptions options, ICurrentOrganization currentOrganization)
     : DbContext(options)
 {
     private readonly ICurrentOrganization _currentOrganization = currentOrganization;

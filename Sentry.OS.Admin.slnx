@@ -1,9 +1,15 @@
 <Solution>
+  <Folder Name="/Admin/">
+    <Project Path="src/Sentry.OS.Admin.Application/Sentry.OS.Admin.Application.csproj" />
+    <Project Path="src/Sentry.OS.Admin.Infrastructure/Sentry.OS.Admin.Infrastructure.csproj" />
+    <Project Path="src/Sentry.OS.Admin.API/Sentry.OS.Admin.API.csproj" />
+  </Folder>
   <Folder Name="/Shared/">
     <Project Path="src/Sentry.OS.Domain/Sentry.OS.Domain.csproj" />
     <Project Path="src/Sentry.OS.Persistence/Sentry.OS.Persistence.csproj" />
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="tests/Sentry.OS.Persistence.Tests/Sentry.OS.Persistence.Tests.csproj" />
+    <Project Path="tests/Sentry.OS.Admin.API.Tests/Sentry.OS.Admin.API.Tests.csproj" />
   </Folder>
 </Solution>
