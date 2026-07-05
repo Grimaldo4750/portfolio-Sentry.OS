@@ -1,0 +1,147 @@
+{
+  "common": {
+    "actions": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "create": "Create",
+      "edit": "Edit",
+      "deactivate": "Deactivate",
+      "delete": "Delete",
+      "confirm": "Confirm",
+      "back": "Back"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "table": {
+      "page": "Page {{page}} of {{totalPages}}",
+      "previous": "Previous",
+      "next": "Next",
+      "empty": "No records found."
+    },
+    "errors": {
+      "forbidden": "You don't have permission to view this.",
+      "notFound": "The requested item could not be found.",
+      "unexpected": "Something went wrong. Please try again."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to Sentry.OS",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…"
+    },
+    "errors": {
+      "invalidCredentials": "The email or password you entered is incorrect.",
+      "serviceUnavailable": "We couldn't reach the identity service. Please try again shortly.",
+      "sessionExpired": "Your session has expired. Please sign in again."
+    }
+  },
+  "shell": {
+    "heroCard": {
+      "logout": "Log out"
+    },
+    "themeSelector": {
+      "label": "Theme",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "languageSelector": {
+      "label": "Language"
+    },
+    "organizationSwitcher": {
+      "label": "Organization"
+    },
+    "nav": {
+      "users": "Users",
+      "roles": "Roles",
+      "organizations": "Organizations",
+      "applications": "Applications",
+      "auditLog": "Audit Log",
+      "settings": "Organization Settings"
+    }
+  },
+  "organizations": {
+    "list": {
+      "title": "Organizations",
+      "create": "New Organization"
+    },
+    "detail": {
+      "nameLabel": "Name",
+      "duplicateName": "An organization with this name already exists."
+    }
+  },
+  "organizationSettings": {
+    "title": "Organization Settings",
+    "defaultLanguageLabel": "Default language",
+    "defaultThemeLabel": "Default theme",
+    "sessionDisplayLabel": "Session/token display",
+    "readOnlyNotice": "Only organization administrators can edit these settings."
+  },
+  "users": {
+    "list": {
+      "title": "Users",
+      "create": "New User"
+    },
+    "detail": {
+      "nameLabel": "Full name",
+      "emailLabel": "Email",
+      "roles": "Role Assignments",
+      "assignRole": "Assign Role",
+      "roleLevelBlocked": "You cannot assign or remove a role at or above your own level."
+    }
+  },
+  "roles": {
+    "list": {
+      "title": "Roles",
+      "create": "New Role"
+    },
+    "detail": {
+      "nameLabel": "Name",
+      "levelLabel": "Level (optional)",
+      "scopes": "Scopes",
+      "attachScope": "Attach Scope",
+      "levelBlocked": "You cannot create or edit a role at or above your own level."
+    }
+  },
+  "applications": {
+    "list": {
+      "title": "Applications",
+      "create": "New Application"
+    },
+    "detail": {
+      "nameLabel": "Name",
+      "resources": "API Resources",
+      "clients": "Clients"
+    }
+  },
+  "apiResources": {
+    "detail": {
+      "nameLabel": "Name",
+      "scopes": "Scopes",
+      "createScope": "New Scope"
+    }
+  },
+  "clients": {
+    "detail": {
+      "nameLabel": "Name",
+      "allowedScopes": "Allowed Scopes"
+    }
+  },
+  "auditLog": {
+    "title": "Audit Log",
+    "filters": {
+      "dateRange": "Date range",
+      "entityType": "Entity type"
+    },
+    "columns": {
+      "actor": "Actor",
+      "action": "Action",
+      "target": "Target",
+      "timestamp": "Timestamp"
+    }
+  }
+}
