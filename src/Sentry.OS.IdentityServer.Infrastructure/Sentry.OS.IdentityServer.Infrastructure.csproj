@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sentry.OS.IdentityServer.Application\Sentry.OS.IdentityServer.Application.csproj" />
+    <ProjectReference Include="..\Sentry.OS.Domain\Sentry.OS.Domain.csproj" />
+    <!-- Needed only to register the concrete EF Core repository implementations at DI time. -->
+    <ProjectReference Include="..\Sentry.OS.Persistence\Sentry.OS.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.9" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.14.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
+  </ItemGroup>
+
+</Project>

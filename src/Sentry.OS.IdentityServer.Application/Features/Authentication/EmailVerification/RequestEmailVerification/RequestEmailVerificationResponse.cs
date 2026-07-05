@@ -1,0 +1,3 @@
+namespace Sentry.OS.IdentityServer.Application.Features.Authentication.EmailVerification.RequestEmailVerification;
+
+public record RequestEmailVerificationResponse(bool Succeeded);
