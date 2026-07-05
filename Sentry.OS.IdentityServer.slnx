@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/IdentityServer/">
+    <Project Path="src/Sentry.OS.IdentityServer/Sentry.OS.IdentityServer.csproj" />
+  </Folder>
+  <Folder Name="/Shared/">
+    <Project Path="src/Sentry.OS.Domain/Sentry.OS.Domain.csproj" />
+    <Project Path="src/Sentry.OS.Persistence/Sentry.OS.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="tests/Sentry.OS.Persistence.Tests/Sentry.OS.Persistence.Tests.csproj" />
+  </Folder>
+</Solution>

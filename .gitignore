@@ -427,3 +427,27 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Claude Code — ignore machine-local / personal files, keep shared team config
+# Personal, per-developer settings and memory (never commit)
+.claude/settings.local.json
+CLAUDE.local.md
+# Local session/runtime artifacts Claude Code may drop in the project
+.claude/todos/
+.claude/logs/
+.claude/shell-snapshots/
+.claude/statsig/
+.claude/projects/
+.claude/history.jsonl
+.claude/*.local.json
+# Keep shared team config tracked (skills, agents, commands, project settings)
+!.claude/settings.json
+!.claude/skills/
+!.claude/agents/
+!.claude/commands/
+
+# Spec Kit — keep specs & constitution tracked, ignore local-only bits
+.specify/**/*.local.*
+/.specify
+/.claude
+/specs
