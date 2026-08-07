@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.WebUtilities;
+using Sentry.OS.IdentityServer.Application.Common;
 using Sentry.OS.IdentityServer.Application.Features.Authentication.TwoFactor.RequestTwoFactorCode;
 using Sentry.OS.IdentityServer.Application.Features.Authentication.TwoFactor.VerifyTwoFactorCode;
 using Sentry.OS.IdentityServer.Pages;
@@ -11,7 +12,7 @@ public static class TwoFactorEndpoint
 {
     public static IEndpointRouteBuilder MapTwoFactorEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/connect/login/two-factor", async (HttpRequest httpRequest, IMediator mediator, CancellationToken cancellationToken) =>
+        app.MapPost("/connect/login/two-factor", async (HttpRequest httpRequest, IMediator mediator, IIdentityServerOptions options, CancellationToken cancellationToken) =>
         {
             var form = await httpRequest.ReadFormAsync(cancellationToken);
             var userId = Guid.Parse(form["user_id"].ToString());
@@ -32,7 +33,7 @@ public static class TwoFactorEndpoint
 
             if (!result.Succeeded)
             {
-                var html = TwoFactorPage.Render(userId, clientId, redirectUri, scope, codeChallenge, codeChallengeMethod, state, nonce,
+                var html = TwoFactorPage.Render(options.Issuer, userId, clientId, redirectUri, scope, codeChallenge, codeChallengeMethod, state, nonce,
                     message: "The verification code is incorrect or has expired.");
                 return Results.Content(html, "text/html");
             }
@@ -50,7 +51,7 @@ public static class TwoFactorEndpoint
         .WithSummary("Verifies the emailed two-factor code and continues the Authorization Code flow.")
         .RequireRateLimiting("auth");
 
-        app.MapPost("/connect/login/two-factor/resend", async (HttpRequest httpRequest, IMediator mediator, CancellationToken cancellationToken) =>
+        app.MapPost("/connect/login/two-factor/resend", async (HttpRequest httpRequest, IMediator mediator, IIdentityServerOptions options, CancellationToken cancellationToken) =>
         {
             var form = await httpRequest.ReadFormAsync(cancellationToken);
             var userId = Guid.Parse(form["user_id"].ToString());
@@ -64,7 +65,7 @@ public static class TwoFactorEndpoint
 
             await mediator.Send(new RequestTwoFactorCodeCommand(userId), cancellationToken);
 
-            var html = TwoFactorPage.Render(userId, clientId, redirectUri, scope, codeChallenge, codeChallengeMethod, state, nonce,
+            var html = TwoFactorPage.Render(options.Issuer, userId, clientId, redirectUri, scope, codeChallenge, codeChallengeMethod, state, nonce,
                 message: "A new verification code has been sent.");
             return Results.Content(html, "text/html");
         })

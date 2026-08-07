@@ -1,3 +1,4 @@
+using System.Net.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,19 @@ public static class AuthenticationServiceCollectionExtensions
                 options.Audience = audience;
                 options.RequireHttpsMetadata = requireHttpsMetadata;
                 options.TokenValidationParameters.ValidateAudience = !string.IsNullOrEmpty(audience);
+
+                // Development convenience: when HTTPS metadata isn't required, also accept the local
+                // development certificate on the discovery/JWKS backchannel. This covers hosting the
+                // API under an IIS app-pool identity that doesn't trust the machine's localhost dev
+                // cert. NEVER enable this (keep RequireHttpsMetadata=true) in production.
+                if (!requireHttpsMetadata)
+                {
+                    options.BackchannelHttpHandler = new HttpClientHandler
+                    {
+                        ServerCertificateCustomValidationCallback =
+                            HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                    };
+                }
             });
 
         services.AddAuthorization(options =>

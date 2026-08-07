@@ -1,65 +1,90 @@
-import axios from "axios";
+import type { User } from "oidc-client-ts";
+import { userManager } from "@/features/auth/oidcConfig";
 import type { Session } from "@/features/auth/session";
 
 /**
- * Speaks to the OIDC authority's token endpoint directly (a mocked authority for this feature
- * — see oidcConfig.ts and specs/003-admin-web-login/plan.md Complexity Tracking). The
- * `oidc-client-ts` `UserManager` remains configured for the real Authorization Code + PKCE
- * redirect flow that will replace this direct call once Sentry.OS.IdentityServer ships a real
- * OIDC surface; until then, the portal's own LoginPage collects credentials and exchanges them
- * here rather than redirecting to a separately hosted IdP login page.
+ * Authorization Code + PKCE against the real Sentry.OS.IdentityServer. The portal never collects
+ * credentials itself — `beginSignIn` redirects to the IdP's hosted login page; the IdP redirects
+ * back to /callback with an authorization code that `completeSignIn` exchanges for tokens.
  */
-const authorityClient = axios.create({
-  baseURL: import.meta.env.VITE_OIDC_AUTHORITY,
-});
 
-interface TokenResponse {
-  access_token: string;
-  id_token: string;
-  expires_in: number;
-  profile: {
-    sub: string;
-    name: string;
-    email: string;
-    organization_id: string;
-    global_administrator: boolean;
-    role_level: number;
+/** Redirects the browser to the IdP authorize endpoint (starts the flow). */
+export async function beginSignIn(returnTo: string): Promise<void> {
+  await userManager.signinRedirect({ state: { returnTo } });
+}
+
+/** Handles the /callback redirect: completes the code exchange and returns the established session. */
+export async function completeSignIn(): Promise<{ session: Session; returnTo: string }> {
+  try {
+    const user = await userManager.signinRedirectCallback();
+    return {
+      session: sessionFromOidcUser(user),
+      returnTo: (user.state as { returnTo?: string } | undefined)?.returnTo ?? "/",
+    };
+  } catch {
+    throw new AuthServiceError("unknown");
+  }
+}
+
+/** Returns the current oidc-client session as a portal Session, or undefined if none/expired. */
+export async function loadOidcSession(): Promise<Session | undefined> {
+  const user = await userManager.getUser();
+  if (!user || user.expired) {
+    return undefined;
+  }
+  return sessionFromOidcUser(user);
+}
+
+/** Clears the local oidc session (no IdP round-trip; end-session is not implemented server-side). */
+export async function clearOidcSession(): Promise<void> {
+  await userManager.removeUser();
+}
+
+/**
+ * Builds the portal Session from an oidc-client User. `sub`/`name`/`email` come from the id_token
+ * profile; `organization_id`, `global_administrator`, and `role_level` are claims carried on the
+ * ACCESS token only (see JwtTokenService.CreateAccessToken), so they are decoded from it here.
+ */
+export function sessionFromOidcUser(user: User): Session {
+  const accessClaims = decodeJwtPayload(user.access_token);
+  const roleLevels = collectRoleLevels(accessClaims["role_level"]);
+
+  return {
+    accessToken: user.access_token,
+    idToken: user.id_token ?? "",
+    expiresAtUtc: new Date((user.expires_at ?? 0) * 1000).toISOString(),
+    user: {
+      id: user.profile.sub,
+      name: (user.profile.name as string | undefined) ?? user.profile.sub,
+      email: (user.profile.email as string | undefined) ?? "",
+      homeOrganizationId: (accessClaims["organization_id"] as string | undefined) ?? "",
+      isGlobalAdministrator: accessClaims["global_administrator"] === "true" || accessClaims["global_administrator"] === true,
+      highestRoleLevel: roleLevels.length > 0 ? Math.max(...roleLevels) : 0,
+    },
   };
 }
 
-export async function signIn(email: string, password: string): Promise<Session> {
-  try {
-    const { data } = await authorityClient.post<TokenResponse>("/connect/token", {
-      grant_type: "password",
-      client_id: import.meta.env.VITE_OIDC_CLIENT_ID,
-      username: email,
-      password,
-      scope: "openid profile admin.read admin.write",
-    });
+/** `role_level` may be absent, a single value, or an array of values. */
+function collectRoleLevels(claim: unknown): number[] {
+  const values = Array.isArray(claim) ? claim : claim == null ? [] : [claim];
+  return values.map((v) => Number(v)).filter((n) => Number.isFinite(n));
+}
 
-    return {
-      accessToken: data.access_token,
-      idToken: data.id_token,
-      expiresAtUtc: new Date(Date.now() + data.expires_in * 1000).toISOString(),
-      user: {
-        id: data.profile.sub,
-        name: data.profile.name,
-        email: data.profile.email,
-        homeOrganizationId: data.profile.organization_id,
-        isGlobalAdministrator: data.profile.global_administrator,
-        highestRoleLevel: data.profile.role_level,
-      },
-    };
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (!error.response) {
-        throw new AuthServiceError("connectivity");
-      }
-      if (error.response.status === 400) {
-        throw new AuthServiceError("invalidCredentials");
-      }
-    }
-    throw new AuthServiceError("unknown");
+/** Minimal, dependency-free decode of a JWT payload (no signature check — oidc-client already validated it). */
+function decodeJwtPayload(token: string): Record<string, unknown> {
+  const payload = token.split(".")[1];
+  if (!payload) return {};
+  try {
+    const base64 = payload.replace(/-/g, "+").replace(/_/g, "/");
+    const json = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map((c) => `%${c.charCodeAt(0).toString(16).padStart(2, "0")}`)
+        .join(""),
+    );
+    return JSON.parse(json) as Record<string, unknown>;
+  } catch {
+    return {};
   }
 }
 

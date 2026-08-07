@@ -6,6 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <Title>Sentry OS (IdP)</Title>
+    <Version>1.0.0.1</Version>
+    <Authors>Christian Grimaldo</Authors>
   </PropertyGroup>
 
   <ItemGroup>

@@ -16,7 +16,6 @@ const NAV_ENTRIES: NavEntry[] = [
   { to: "/applications", labelKey: "shell.nav.applications" },
   { to: "/organizations", labelKey: "shell.nav.organizations", globalAdministratorOnly: true },
   { to: "/audit-log", labelKey: "shell.nav.auditLog" },
-  { to: "/settings", labelKey: "shell.nav.settings" },
 ];
 
 /** The permanent left drawer's nav sidebar — no top nav/ribbon/dashboard header (Principle X, NON-NEGOTIABLE). */

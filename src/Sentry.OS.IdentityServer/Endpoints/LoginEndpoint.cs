@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.WebUtilities;
+using Sentry.OS.IdentityServer.Application.Common;
 using Sentry.OS.IdentityServer.Application.Features.Authentication.SignIn;
 using Sentry.OS.IdentityServer.Pages;
 
@@ -10,7 +11,7 @@ public static class LoginEndpoint
 {
     public static IEndpointRouteBuilder MapLoginEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapPost("/connect/login", async (HttpRequest httpRequest, IMediator mediator, CancellationToken cancellationToken) =>
+        app.MapPost("/connect/login", async (HttpRequest httpRequest, IMediator mediator, IIdentityServerOptions options, CancellationToken cancellationToken) =>
         {
             var form = await httpRequest.ReadFormAsync(cancellationToken);
             var clientId = form["client_id"].ToString();
@@ -32,14 +33,14 @@ public static class LoginEndpoint
             if (result.TwoFactorRequired)
             {
                 var html = TwoFactorPage.Render(
-                    result.PendingUserId!.Value, clientId, redirectUri, scope, codeChallenge, codeChallengeMethod, state, nonce,
+                    options.Issuer, result.PendingUserId!.Value, clientId, redirectUri, scope, codeChallenge, codeChallengeMethod, state, nonce,
                     message: "We emailed you a verification code.");
                 return Results.Content(html, "text/html");
             }
 
             if (!result.Succeeded)
             {
-                var html = LoginPage.Render(clientId, redirectUri, scope, codeChallenge, codeChallengeMethod, state, nonce,
+                var html = LoginPage.Render(options.Issuer, clientId, redirectUri, scope, codeChallenge, codeChallengeMethod, state, nonce,
                     errorMessage: "Invalid email or password.");
                 return Results.Content(html, "text/html");
             }

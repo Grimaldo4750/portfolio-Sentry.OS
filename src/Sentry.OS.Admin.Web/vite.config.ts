@@ -12,6 +12,9 @@ export default defineConfig({
     },
   },
   server: {
-    port: 5173,
+    // Must match VITE_OIDC_REDIRECT_URI's port — an OIDC redirect URI has to match exactly, and
+    // strictPort prevents Vite from silently falling back to another port and breaking the callback.
+    port: 5174,
+    strictPort: true,
   },
 })

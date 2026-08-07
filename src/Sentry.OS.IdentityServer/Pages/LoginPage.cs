@@ -6,7 +6,7 @@ namespace Sentry.OS.IdentityServer.Pages;
 public static class LoginPage
 {
     public static string Render(
-        string clientId, string redirectUri, string scope, string codeChallenge, string codeChallengeMethod,
+        string baseUrl, string clientId, string redirectUri, string scope, string codeChallenge, string codeChallengeMethod,
         string? state, string? nonce, string? errorMessage)
     {
         var errorHtml = errorMessage is null
@@ -20,7 +20,7 @@ public static class LoginPage
         <body style="font-family: sans-serif; max-width: 360px; margin: 80px auto;">
           <h1>Sign in to Sentry.OS</h1>
           {errorHtml}
-          <form method="post" action="/connect/login">
+          <form method="post" action="{WebUtility.HtmlEncode(baseUrl)}/connect/login">
             <input type="hidden" name="client_id" value="{WebUtility.HtmlEncode(clientId)}" />
             <input type="hidden" name="redirect_uri" value="{WebUtility.HtmlEncode(redirectUri)}" />
             <input type="hidden" name="scope" value="{WebUtility.HtmlEncode(scope)}" />

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { ThemeSelector } from "@/features/shell/ThemeSelector";
 import { LanguageSelector } from "@/features/shell/LanguageSelector";
+import { OrganizationSwitcher } from "@/features/shell/OrganizationSwitcher";
 
 /**
  * Profile picture, name, email, active organization, theme selector, language selector,
@@ -28,7 +29,7 @@ export function HeroCard() {
         </div>
       </div>
 
-      {/* Organization switcher (US4) is composed in below the identity block. */}
+      <OrganizationSwitcher />
 
       <div className="flex flex-wrap gap-2">
         <LanguageSelector />

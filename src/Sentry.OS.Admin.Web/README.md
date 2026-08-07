@@ -13,22 +13,32 @@ This portal signs in against the shared platform seed defined in
 not a real secret:
 
 ```
-Email:    admin@sentry.os
-Password: Admin#12345
+Email:    c_grimaldo@outlook.com
+Password: D@ngerdays4750
 ```
 
 ## Getting started
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173 — MSW mock OIDC authority active in dev
+npm run dev      # http://localhost:5173
 ```
 
-> **Note**: `Sentry.OS.IdentityServer` does not yet implement a real OAuth2/OIDC surface.
-> This portal authenticates against a **mocked OIDC authority** (via MSW) that returns the
-> seeded admin identity, so frontend development isn't blocked. See
-> [plan.md Complexity Tracking](../../specs/003-admin-web-login/plan.md) for the tracked
-> deviation and follow-up plan.
+The portal authenticates against the real `Sentry.OS.IdentityServer` OAuth2/OIDC surface
+(Authorization Code + PKCE) configured via `.env.development`:
+
+- `VITE_OIDC_AUTHORITY=https://localhost/SentryOS` — the IdP behind its reverse proxy.
+- `VITE_OIDC_CLIENT_ID=sentry-management-web-app` — the seeded public SPA client.
+- `VITE_ADMIN_API_BASE_URL=https://localhost:7088` — the Admin Management API.
+
+Both the IdP and `Sentry.OS.Admin.API` must be running (see the repo root README). Clicking
+**Sign in** redirects to the IdP's hosted login page and returns to `/callback` with an
+authorization code the portal exchanges for tokens.
+
+> **Testing against a mock authority**: the Vitest and Playwright suites run against a mocked
+> OIDC authority (MSW, `mocks/oidcHandlers.ts`). The mock intercepts `VITE_OIDC_AUTHORITY`, so
+> it is **off by default** in `npm run dev` and only starts when `VITE_ENABLE_MSW=true` is set
+> (see `src/main.tsx`).
 
 ## Testing
 

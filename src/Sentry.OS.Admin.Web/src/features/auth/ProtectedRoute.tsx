@@ -3,8 +3,14 @@ import { useAuth } from "@/features/auth/AuthProvider";
 
 /** Redirects unauthenticated visitors to /login (FR-001, FR-002, and deep-link edge case). */
 export function ProtectedRoute() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isHydrating } = useAuth();
   const location = useLocation();
+
+  // Wait for the OIDC session to reconcile before deciding — otherwise a returning user with a
+  // valid session but no fast-loaded local copy would be bounced to /login on first paint.
+  if (isHydrating) {
+    return null;
+  }
 
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;

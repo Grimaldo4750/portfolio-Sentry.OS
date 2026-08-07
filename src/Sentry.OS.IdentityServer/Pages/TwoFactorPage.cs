@@ -6,7 +6,7 @@ namespace Sentry.OS.IdentityServer.Pages;
 public static class TwoFactorPage
 {
     public static string Render(
-        Guid userId, string clientId, string redirectUri, string scope, string codeChallenge, string codeChallengeMethod,
+        string baseUrl, Guid userId, string clientId, string redirectUri, string scope, string codeChallenge, string codeChallengeMethod,
         string? state, string? nonce, string? message)
     {
         var messageHtml = message is null
@@ -31,12 +31,12 @@ public static class TwoFactorPage
         <body style="font-family: sans-serif; max-width: 360px; margin: 80px auto;">
           <h1>Enter your verification code</h1>
           {messageHtml}
-          <form method="post" action="/connect/login/two-factor">
+          <form method="post" action="{WebUtility.HtmlEncode(baseUrl)}/connect/login/two-factor">
             {hiddenFields}
             <label>Verification code<br /><input type="text" name="code" inputmode="numeric" required autofocus /></label><br /><br />
             <button type="submit">Verify</button>
           </form>
-          <form method="post" action="/connect/login/two-factor/resend" style="margin-top: 1em;">
+          <form method="post" action="{WebUtility.HtmlEncode(baseUrl)}/connect/login/two-factor/resend" style="margin-top: 1em;">
             {hiddenFields}
             <button type="submit">Resend code</button>
           </form>

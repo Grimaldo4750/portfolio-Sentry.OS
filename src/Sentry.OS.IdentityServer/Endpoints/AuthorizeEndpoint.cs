@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.WebUtilities;
+using Sentry.OS.IdentityServer.Application.Common;
 using Sentry.OS.IdentityServer.Application.Features.Authorization.Authorize;
 using Sentry.OS.IdentityServer.Pages;
 
@@ -10,7 +11,7 @@ public static class AuthorizeEndpoint
 {
     public static IEndpointRouteBuilder MapAuthorizeEndpoint(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/connect/authorize", async (HttpRequest httpRequest, IMediator mediator, CancellationToken cancellationToken) =>
+        app.MapGet("/connect/authorize", async (HttpRequest httpRequest, IMediator mediator, IIdentityServerOptions options, CancellationToken cancellationToken) =>
         {
             var query = httpRequest.Query;
             var clientId = query["client_id"].ToString();
@@ -47,7 +48,7 @@ public static class AuthorizeEndpoint
                 return Results.Redirect(errorRedirect);
             }
 
-            var html = LoginPage.Render(clientId, redirectUri, scope, codeChallenge, codeChallengeMethod, state, nonce, errorMessage: null);
+            var html = LoginPage.Render(options.Issuer, clientId, redirectUri, scope, codeChallenge, codeChallengeMethod, state, nonce, errorMessage: null);
             return Results.Content(html, "text/html");
         })
         .WithName("Authorize")
